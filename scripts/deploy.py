@@ -1,9 +1,9 @@
-from brownie import SimpleStorage, accounts
+from brownie import SimpleStorage, accounts, config, network
 
 
 def deploy_simple_storage():
     # Select account
-    account = accounts[0]
+    account = get_account()
     # Deploy the Smart Contract
     simple_storage = SimpleStorage.deploy({"from": account})
     # retrive the stored value
@@ -16,6 +16,11 @@ def deploy_simple_storage():
     updated_stored_value = simple_storage.retrieve()
     print(updated_stored_value)
 
+def get_account():
+    if network.show_active() == "development":
+        return accounts[0]
+    else:
+        return accounts.add(config["wallets"]["from_key"])
 
 def main():
     deploy_simple_storage()

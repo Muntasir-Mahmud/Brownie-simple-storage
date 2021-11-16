@@ -11,6 +11,7 @@ def test_deploy():
     # Assert
     assert starting_value == expected
 
+
 def test_updating_storage():
     # Arrange
     account = accounts[0]
